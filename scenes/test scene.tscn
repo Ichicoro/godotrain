@@ -1,0 +1,145 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://scenes/testtrack.tscn" type="PackedScene" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://src/CommandArea.gd" type="Script" id=3]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Spatial
+
+onready var playerScene: PackedScene = preload(\"res://scenes/Player.tscn\")
+onready var path: Path = $Path
+var player: Player
+
+func _ready():
+	player = playerScene.instance().init()
+	self.add_child(player)
+	print(path.curve.get_baked_points())
+
+func _process(delta):
+	if player.percentCleared/path.curve.get_baked_length() > .99:
+		var lastPointPos = path.curve.get_point_position(path.curve.get_point_count() - 1)
+		var newPos = lastPointPos + Vector3(0,0,-10)
+		print(\"%f out of %f\" % [player.distanceTravelled, path.curve.get_baked_length()])
+		path.curve.add_point(newPos)
+"
+
+[sub_resource type="Curve3D" id=2]
+_data = {
+"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, 0.0222993, 0, 3.48604, 0, 0, 0, 0, 0, 0, 0, 0, 1.2413, 0, 0, 0, 0, 0, 0, 0.0148659, 0, -0.438542, 0, 0, 0, 0, 0, 0, -1.01149, 0, -4.42247, 0, 0, 0, 0, 0, 0, -1.02795, 0, -7.25364, 0, 0, 0, 0, 0, 0, -1.01149, 0, -9.95313 ),
+"tilts": PoolRealArray( 0, 0, 0, 0, 0, 0 )
+}
+
+[sub_resource type="ProceduralSky" id=3]
+ground_bottom_color = Color( 0.352941, 0.521569, 0.690196, 1 )
+ground_horizon_color = Color( 0.560784, 0.796078, 1, 1 )
+
+[sub_resource type="Environment" id=4]
+background_mode = 1
+background_sky = SubResource( 3 )
+background_color = Color( 0.329412, 0.694118, 0.87451, 1 )
+fog_enabled = true
+tonemap_mode = 3
+tonemap_white = 16.0
+ssao_enabled = true
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id=5]
+
+[sub_resource type="SpatialMaterial" id=6]
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource( 2 )
+
+[sub_resource type="ConvexPolygonShape" id=7]
+points = PoolVector3Array( 1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, -1 )
+
+[sub_resource type="BoxShape" id=8]
+extents = Vector3( 0.502, 0.246, 0.212 )
+
+[node name="Spatial" type="Spatial"]
+script = SubResource( 1 )
+
+[node name="Path" type="Path" parent="."]
+curve = SubResource( 2 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 4 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -0.285722, 0.958313, 0, -0.958313, -0.285722, 0, 1.44976, 0 )
+
+[node name="StaticBody" type="StaticBody" parent="."]
+
+[node name="MeshInstance" type="MeshInstance" parent="StaticBody"]
+transform = Transform( 4.4133, 0, 0, 0, 1, 0, 0, 0, 4.4133, -0.00517678, -0.197968, -0.00576925 )
+mesh = SubResource( 5 )
+material/0 = SubResource( 6 )
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+transform = Transform( 4.4133, 0, 0, 0, 1, 0, 0, 0, 4.4133, -0.00517678, -0.197968, -0.00576925 )
+shape = SubResource( 7 )
+
+[node name="Spatial" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.914592, -0.216743, -7.21023 )
+
+[node name="Spatial2" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.914592, -0.216743, -12.7348 )
+
+[node name="Spatial3" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.914592, -0.216743, -18.2756 )
+
+[node name="Spatial4" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.914592, -0.216743, -23.8106 )
+
+[node name="Spatial5" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.914592, -0.216743, -29.35 )
+
+[node name="Spatial6" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.914592, -0.216743, -34.8746 )
+
+[node name="Spatial7" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.914592, -0.216743, -40.4153 )
+
+[node name="Spatial8" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.914592, -0.216743, -45.9503 )
+
+[node name="Spatial9" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.992254, 0, -0.124225, 0, 1, 0, 0.124225, 0, 0.992254, 1.23122, -0.216743, -51.1334 )
+
+[node name="Spatial10" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.992254, 0, -0.124225, 0, 1, 0, 0.124225, 0, 0.992254, 1.91752, -0.216743, -56.6152 )
+
+[node name="Spatial11" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.992254, 0, -0.124225, 0, 1, 0, 0.124225, 0, 0.992254, 2.60581, -0.216743, -62.113 )
+
+[node name="Spatial12" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.992254, 0, -0.124225, 0, 1, 0, 0.124225, 0, 0.992254, 3.2934, -0.216743, -67.6052 )
+
+[node name="Spatial13" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.992254, 0, -0.124225, 0, 1, 0, 0.124225, 0, 0.992254, 3.98153, -0.216743, -73.1017 )
+
+[node name="Spatial14" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.992254, 0, -0.124225, 0, 1, 0, 0.124225, 0, 0.992254, 4.66783, -0.216743, -78.5835 )
+
+[node name="Spatial15" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.992254, 0, -0.124225, 0, 1, 0, 0.124225, 0, 0.992254, 5.35612, -0.216743, -84.0813 )
+
+[node name="Spatial16" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.992254, 0, -0.124225, 0, 1, 0, 0.124225, 0, 0.992254, 6.04371, -0.216743, -89.5735 )
+
+[node name="CommandArea" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -47.9298 )
+script = ExtResource( 3 )
+command_type = 1
+amount = Vector3( 0, -2.5, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CommandArea"]
+shape = SubResource( 8 )
+
+[node name="CommandArea2" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.10063, 0, -56.0207 )
+script = ExtResource( 3 )
+command_type = 1
+
+[node name="CollisionShape" type="CollisionShape" parent="CommandArea2"]
+shape = SubResource( 8 )

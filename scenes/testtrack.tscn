@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/test track.fbx" type="PackedScene" id=1]
+
+[node name="Spatial" type="Spatial"]
+
+[node name="test track" parent="." instance=ExtResource( 1 )]
+transform = Transform( -2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, 0, 0, 0 )

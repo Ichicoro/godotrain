@@ -8,10 +8,45 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Area",
+"class": "CommandArea",
+"language": "GDScript",
+"path": "res://src/CommandArea.gd"
+}, {
+"base": "Spatial",
+"class": "Player",
+"language": "GDScript",
+"path": "res://src/Player.gd"
+} ]
+_global_script_class_icons={
+"CommandArea": "",
+"Player": ""
+}
+
 [application]
 
 config/name="godotrain"
+run/main_scene="res://scenes/test scene.tscn"
 config/icon="res://icon.png"
+
+[input]
+
+raise_speed={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":87,"unicode":0,"echo":false,"script":null)
+ ]
+}
+lower_speed={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":83,"unicode":0,"echo":false,"script":null)
+ ]
+}
+reset_speed={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"unicode":0,"echo":false,"script":null)
+ ]
+}
 
 [physics]
 
@@ -19,5 +54,4 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
-quality/driver/driver_name="GLES3"
 environment/default_environment="res://default_env.tres"
